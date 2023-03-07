@@ -1,0 +1,94 @@
+// CUP specification for a simple expression evaluator (no actions)
+package Analizadores;
+import java_cup.runtime.*;
+import ER.ExpresionesRegulares;
+
+/* Preliminaries to set up and use the scanner.  */
+parser code 
+{:
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    } 
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+    }  
+:} 
+/* Terminals (tokens returned by the scanner). */
+terminal    String        LLAVE_ABRE, SEPARADOR, LLAVE_CIERRA, CONJ, DOS_PUNTOS, IDENTIFICADOR;
+terminal    String        ASIGNACION, PUNTO_COMA, LETRA_MAYUS, LETRA_MINUS, DIGITO, CONJ_ASCII;
+terminal    String        COMA, CONJUNTO, COMILLA_DOBLE, COMILLA_SIMPLE, CONCATENACION;
+terminal    String        ALTERNANCIA, CERRADURA_KLENEE, CERRADURA_POSITIVA, OPCIONAL;
+terminal    String        SALTO, ENTRADA, MENOS;
+/* Non terminals */
+non terminal String        inicio, item, item_ascii, notaciones, entre; 
+non terminal String        definiciones, entradas,conjuntos,expresion;
+non terminal String        familia, simple, compuesta, notacion;
+
+/* Precedences */
+precedence left CERRADURA_KLENEE, CERRADURA_POSITIVA, OPCIONAL;
+precedence right CONCATENACION, ALTERNANCIA;
+
+start with inicio; 
+/* The grammar */
+inicio ::= LLAVE_ABRE definiciones SEPARADOR SEPARADOR entradas LLAVE_CIERRA;
+
+definiciones ::= 
+    definiciones conjuntos 
+    | conjuntos                       
+    | definiciones expresion 
+    | expresion
+    ;
+
+conjuntos ::= CONJ DOS_PUNTOS IDENTIFICADOR:c  {:RESULT= c; ExpresionesRegulares.agregarConjunto(RESULT);:} MENOS ASIGNACION familia PUNTO_COMA;
+familia ::=  familia COMA simple | simple | compuesta;
+
+item ::= 
+    LETRA_MAYUS:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
+    | LETRA_MINUS:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
+    | DIGITO:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
+    | CONJ_ASCII:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
+    ;
+
+simple ::= item COMA item;
+
+item_ascii ::= CONJ_ASCII | COMILLA_DOBLE | COMILLA_SIMPLE;
+compuesta ::= LETRA_MAYUS CONJUNTO LETRA_MAYUS
+| LETRA_MINUS CONJUNTO LETRA_MINUS
+| DIGITO CONJUNTO DIGITO
+| item_ascii CONJUNTO item_ascii;
+
+
+notaciones ::=  CONCATENACION:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion notacion 
+    | ALTERNANCIA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:}notacion notacion 
+    | CERRADURA_KLENEE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:}  notacion 
+    | CERRADURA_POSITIVA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion 
+    | OPCIONAL:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion
+    ;
+expresion ::= IDENTIFICADOR:c {:RESULT= c; ExpresionesRegulares.agregarExpresion(RESULT);:} MENOS ASIGNACION notaciones PUNTO_COMA;
+
+notacion ::= CONCATENACION:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion notacion;
+notacion ::= ALTERNANCIA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion notacion;
+notacion ::= CERRADURA_KLENEE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion;
+notacion ::= CERRADURA_POSITIVA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion;
+notacion ::= OPCIONAL:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion;
+notacion ::= 
+    LLAVE_ABRE IDENTIFICADOR:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} LLAVE_CIERRA 
+    | SALTO:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} 
+    | COMILLA_DOBLE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} 
+    | COMILLA_SIMPLE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} 
+    | ENTRADA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:}
+    ;
+
+entradas ::= entradas entre | entre;
+
+entre ::= IDENTIFICADOR:i DOS_PUNTOS ENTRADA:e PUNTO_COMA {:ExpresionesRegulares.agregarEntrada(i,e);:};

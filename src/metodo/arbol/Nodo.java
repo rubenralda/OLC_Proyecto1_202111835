@@ -1,0 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package metodo.arbol;
+
+/**
+ *
+ * @author ruben
+ */
+
+public class Nodo {
+    private int identificador;
+    private boolean anulable;
+    private String primeros;
+    private String ultimos;
+}
