@@ -56,7 +56,7 @@ conjuntoASCII = [\x32-\x47\x58-\x64\x91-\x96]// FALTA VERIFICAR
   {letraMinus}                    { return symbol(sym.LETRA_MINUS); }
   {identificador}                 { return symbol(sym.IDENTIFICADOR); }
   {digito}                        { return symbol(sym.DIGITO); }
-  \"                              { expreEntrada.setLength(0); yybegin(STRING); }
+  \"                              { expreEntrada.setLength(0);expreEntrada.append('\"'); yybegin(STRING); }
   \\n                             { return symbol(sym.SALTO); }
   \\\"                            { return symbol(sym.COMILLA_DOBLE); }
   \\\'                            { return symbol(sym.COMILLA_SIMPLE); } 
@@ -83,7 +83,7 @@ conjuntoASCII = [\x32-\x47\x58-\x64\x91-\x96]// FALTA VERIFICAR
 }
 
 <STRING> {
-  \"                             { yybegin(YYINITIAL);
+  \"                             { yybegin(YYINITIAL); expreEntrada.append('\"');
                                 return symbol(sym.ENTRADA, expreEntrada.toString()); }
   [^\n\r\"\\]+                   { expreEntrada.append( yytext() ); }
   \\t                            { expreEntrada.append('\t'); }

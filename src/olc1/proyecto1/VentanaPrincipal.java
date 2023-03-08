@@ -6,11 +6,13 @@ package olc1.proyecto1;
 
 import Analizadores.Lexico;
 import Analizadores.parser;
+import metodo.arbol.Arbol;
 import ER.ExpresionesRegulares;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -26,7 +28,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private String datos = "";
     private File archivo = null;
-
+    private Operaciones operaciones= new Operaciones();
+    
     public VentanaPrincipal() {
         initComponents();
     }
@@ -194,6 +197,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         interpretar(texto.getText());
         ExpresionesRegulares.mostrarConjuntos();
         ExpresionesRegulares.mostrarExpresiones();
+        operaciones.crearArboles(ExpresionesRegulares.getExpresiones());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

@@ -3,14 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package olc1.proyecto1;
-
-import Analizadores.parser;
-import Analizadores.Lexico;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-
 /**
  *
  * @author ruben

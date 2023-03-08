@@ -17,6 +17,11 @@ public class ExpresionesRegulares {
     private static Vector<Expresion> conjuntos = new Vector<Expresion>();
     private static Vector<String> conjunto = new Vector<String>();
 
+    
+    public static Vector<Expresion> getExpresiones() {
+        return expresiones;
+    }
+ 
     /*
         agregarExpresion
         crea un objeto con el identificador que 
@@ -72,7 +77,6 @@ public class ExpresionesRegulares {
 
     public static void mostrarExpresiones() {
         for (int i = 0; i < expresiones.size(); i++) {
-            System.out.println(expresiones.elementAt(i).getEntradas().elementAt(0));
             System.out.print(String.valueOf(i) + expresiones.elementAt(i).getNombre() + "\t");
             for (int j = 0; j < expresiones.elementAt(i).getValor().size(); j++) {
                 System.out.print(String.valueOf(i) + expresiones.elementAt(i).getValor().elementAt(j) + String.valueOf(j) + "\t");
