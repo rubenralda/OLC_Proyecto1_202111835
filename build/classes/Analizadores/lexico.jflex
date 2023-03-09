@@ -30,7 +30,7 @@ LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
-comentarioCompuesto   = "<!" [^!] ~"!>" | "<!" "!"+ ">"
+comentarioCompuesto   = "<!" [^*] ~"!>" | "<!" "!"+ ">"
 comentarioSimple     = "//" {InputCharacter}* {LineTerminator}?
 comentario = {comentarioCompuesto} | {comentarioSimple}
 

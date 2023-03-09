@@ -15,6 +15,11 @@ public class Expresion {
     private String nombre;
     private Vector<String> valor;
     private Vector<String> entradas = new Vector<String>();
+    private int cantCaracteres = 0;
+
+    public void sumarUno(){
+        cantCaracteres++;
+    }
     
     public Expresion(String nombre, Vector<String> valor) {
         this.nombre = nombre;
@@ -33,6 +38,10 @@ public class Expresion {
         return entradas;
     }
 
+    public int getCantCaracteres() {
+        return cantCaracteres;
+    }
+    
     public void agregarEntrada(String entrada) {
         entradas.add(entrada);
     }

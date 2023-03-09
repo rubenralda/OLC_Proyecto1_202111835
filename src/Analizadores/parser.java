@@ -812,7 +812,7 @@ RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
+RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$12",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -838,7 +838,7 @@ RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
+		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("notacion",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -850,7 +850,7 @@ RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
+		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("notacion",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -862,7 +862,7 @@ RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
+		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("notacion",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -874,7 +874,7 @@ RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);
+		RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("notacion",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

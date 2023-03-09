@@ -64,7 +64,10 @@ public class ExpresionesRegulares {
         conjuntos.add(new Expresion(nombre, valor));
         conjunto = valor;
     }
-
+    
+    public static void sumarAlUltimo(){
+        expresiones.elementAt(expresiones.size()-1).sumarUno();
+    }
     public static void mostrarConjuntos() {
         for (int i = 0; i < conjuntos.size(); i++) {
             System.out.print(String.valueOf(i) + conjuntos.elementAt(i).getNombre() + "\t");

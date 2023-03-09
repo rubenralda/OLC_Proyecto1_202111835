@@ -5,8 +5,9 @@
 package olc1.proyecto1;
 
 import ER.Expresion;
+import ER.ExpresionesRegulares;
 import java.util.Vector;
-import metodo.arbol.Arbol;
+import metodoArbol.Arbol;
 
 /**
  *
@@ -17,12 +18,24 @@ public class Operaciones {
     
     public void crearArboles(Vector<Expresion> expresiones){
          for (int i = 0; i < expresiones.size(); i++) {
-            Arbol nuevo = new Arbol(expresiones.elementAt(i).getValor(), expresiones.elementAt(i).getNombre());
+            expresiones.elementAt(i).getValor().add("#");
+            expresiones.elementAt(i).getValor().add(0, ".");
+            expresiones.elementAt(i).sumarUno();
+            Arbol nuevo = new Arbol(expresiones.elementAt(i).getValor(), expresiones.elementAt(i).getNombre(), expresiones.elementAt(i).getCantCaracteres());
             nuevo.crearArbol();
-            nuevo.mostrar();
+            System.out.println("Arbol y tabla siguiente creado: " + expresiones.elementAt(i).getNombre());
+            nuevo.mostrarArbol();
+            System.out.println("Arbol Graficado: " + expresiones.elementAt(i).getNombre());
+            nuevo.mostrarTablaSiguientes();
+            System.out.println("Tabla siguiente graficada: " + expresiones.elementAt(i).getNombre());
+            nuevo.CrearTablaTransicion();
+            System.out.println("Tabla de transicion Creada: " + expresiones.elementAt(i).getNombre());
+            nuevo.mostrarTablaTransicion();
+            System.out.println("Tabla de transicion graficada: " + expresiones.elementAt(i).getNombre());
             arboles.add(nuevo);
-            System.out.println("Arbol creado: " + expresiones.elementAt(i).getNombre());
         }
+        /*ExpresionesRegulares.mostrarConjuntos();
+        ExpresionesRegulares.mostrarExpresiones();*/
     }
 
     public Vector<Arbol> getArboles() {

@@ -82,11 +82,11 @@ notacion ::= CERRADURA_KLENEE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(
 notacion ::= CERRADURA_POSITIVA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion;
 notacion ::= OPCIONAL:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion;
 notacion ::= 
-    LLAVE_ABRE IDENTIFICADOR:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} LLAVE_CIERRA 
-    | SALTO:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} 
-    | COMILLA_DOBLE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} 
-    | COMILLA_SIMPLE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} 
-    | ENTRADA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:}
+    LLAVE_ABRE IDENTIFICADOR:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();:} LLAVE_CIERRA 
+    | SALTO:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();:} 
+    | COMILLA_DOBLE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();:} 
+    | COMILLA_SIMPLE:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();:} 
+    | ENTRADA:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);ExpresionesRegulares.sumarAlUltimo();:}
     ;
 
 entradas ::= entradas entre | entre;
