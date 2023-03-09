@@ -4,23 +4,21 @@ import java_cup.runtime.*;
 import ER.ExpresionesRegulares;
 
 /* Preliminaries to set up and use the scanner.  */
-parser code 
-{:
+parser code {:
     /**
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
     public void syntax_error(Symbol s){ 
-        System.out.println("Error Sintáctico en la Línea " + (s.left) +
-        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        String errSin = "Error Sintáctico en la Línea " + (s.left) + " Columna "+s.right+ ". No se esperaba este componente: " +s.value+".";
+        System.out.println(errSin); 
     } 
     /**
      * Método al que se llama automáticamente ante algún error sintáctico 
      * en el que ya no es posible una recuperación de errores.
      **/ 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
-        System.out.println("Error síntactico irrecuperable en la Línea " + 
-        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
-        " no reconocido."); 
+        String errSin = "Error síntactico irrecuperable en la Línea " + (s.left)+ " Columna "+s.right+". Componente " + s.value + " no reconocido.";
+        System.out.println(errSin); 
     }  
 :} 
 /* Terminals (tokens returned by the scanner). */
@@ -32,7 +30,7 @@ terminal    String        SALTO, ENTRADA, MENOS;
 /* Non terminals */
 non terminal String        inicio, item, item_ascii, notaciones, entre; 
 non terminal String        definiciones, entradas,conjuntos,expresion;
-non terminal String        familia, simple, compuesta, notacion;
+non terminal String        familia, simple, compuesta, notacion, familias;
 
 /* Precedences */
 precedence left CERRADURA_KLENEE, CERRADURA_POSITIVA, OPCIONAL;
@@ -49,23 +47,43 @@ definiciones ::=
     | expresion
     ;
 
-conjuntos ::= CONJ DOS_PUNTOS IDENTIFICADOR:c  {:RESULT= c; ExpresionesRegulares.agregarConjunto(RESULT);:} MENOS ASIGNACION familia PUNTO_COMA;
-familia ::=  familia COMA simple | simple | compuesta;
+conjuntos ::= CONJ DOS_PUNTOS IDENTIFICADOR:c  {:RESULT= c; ExpresionesRegulares.agregarConjunto(RESULT);:} MENOS ASIGNACION familias PUNTO_COMA;
+familias ::= familia | compuesta;
+
+familia ::=  familia COMA simple | simple;
+
+item_ascii ::= CONJ_ASCII:a {:RESULT= a;:}
+    | COMILLA_DOBLE:a {:RESULT= a;:} 
+    | COMILLA_SIMPLE:a {:RESULT= a;:}
+    | LLAVE_ABRE:a {:RESULT= a;:}
+    | LLAVE_CIERRA:a {:RESULT= a;:}
+    | CERRADURA_POSITIVA:a {:RESULT= a;:}
+    | PUNTO_COMA:a {:RESULT= a;:}
+    | CONCATENACION:a {:RESULT= a;:}
+    | CERRADURA_KLENEE:a {:RESULT= a;:}
+    | ALTERNANCIA:a {:RESULT= a;:}
+    | OPCIONAL:a {:RESULT= a;:}
+    | DOS_PUNTOS:a {:RESULT= a;:}
+    | ASIGNACION:a {:RESULT= a;:}
+    | COMA:a {:RESULT= a;:}
+    | MENOS:a {:RESULT= a;:}
+    ;
 
 item ::= 
     LETRA_MAYUS:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
     | LETRA_MINUS:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
     | DIGITO:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
-    | CONJ_ASCII:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
+    | item_ascii:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
     ;
 
 simple ::= item COMA item;
 
-item_ascii ::= CONJ_ASCII | COMILLA_DOBLE | COMILLA_SIMPLE;
-compuesta ::= LETRA_MAYUS CONJUNTO LETRA_MAYUS
-| LETRA_MINUS CONJUNTO LETRA_MINUS
-| DIGITO CONJUNTO DIGITO
-| item_ascii CONJUNTO item_ascii;
+
+compuesta ::= LETRA_MAYUS:a CONJUNTO LETRA_MAYUS:b {:ExpresionesRegulares.agregarAscii(a,b);:}
+    | LETRA_MINUS:a CONJUNTO LETRA_MINUS:b {:ExpresionesRegulares.agregarAscii(a,b);:}
+    | DIGITO:a CONJUNTO DIGITO:b {:ExpresionesRegulares.agregarAscii(a,b);:}
+    | item_ascii:a CONJUNTO item_ascii:b {:ExpresionesRegulares.agregarAsciiEspecial(a,b);:}
+;
 
 
 notaciones ::=  CONCATENACION:a {:RESULT= a; ExpresionesRegulares.agregarLexema(RESULT);:} notacion notacion 

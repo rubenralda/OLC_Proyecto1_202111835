@@ -34,8 +34,8 @@ public class Operaciones {
             System.out.println("Tabla de transicion graficada: " + expresiones.elementAt(i).getNombre());
             arboles.add(nuevo);
         }
-        /*ExpresionesRegulares.mostrarConjuntos();
-        ExpresionesRegulares.mostrarExpresiones();*/
+        ExpresionesRegulares.mostrarConjuntos();
+        ExpresionesRegulares.mostrarExpresiones();
     }
 
     public Vector<Arbol> getArboles() {

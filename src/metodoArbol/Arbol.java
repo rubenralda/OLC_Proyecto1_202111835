@@ -4,6 +4,7 @@
  */
 package metodoArbol;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Stack;
@@ -47,10 +48,10 @@ public class Arbol {
                     hoja = pila.pop();
                     ultimos = hoja.getUltimos().split(",");
                     for (String ultimo1 : ultimos) {
-                        if (tablaSiguiente[Integer.parseInt(ultimo1)][1] == null) {
+                        if (tablaSiguiente[Integer.parseInt(ultimo1) - 1][1] == null) {
                             tablaSiguiente[Integer.parseInt(ultimo1) - 1][1] = hoja.getPrimeros();
                         } else {
-                            tablaSiguiente[Integer.getInteger(ultimo1) - 1][1] += "," + hoja.getPrimeros();
+                            tablaSiguiente[Integer.parseInt(ultimo1) - 1][1] += "," + hoja.getPrimeros();
                         }
                     }
                     resultado = new Nodo(0, "*", true, hoja.getPrimeros(), hoja.getUltimos(), hoja, null);
@@ -79,10 +80,10 @@ public class Arbol {
                     }
                     ultimos = hoja.getUltimos().split(",");
                     for (String ultimo1 : ultimos) {
-                        if (tablaSiguiente[Integer.parseInt(ultimo1)][1] == null) {
+                        if (tablaSiguiente[Integer.parseInt(ultimo1) - 1][1] == null) {
                             tablaSiguiente[Integer.parseInt(ultimo1) - 1][1] = hoja.getPrimeros();
                         } else {
-                            tablaSiguiente[Integer.getInteger(ultimo1) - 1][1] += "," + hoja.getPrimeros();
+                            tablaSiguiente[Integer.parseInt(ultimo1) - 1][1] += "," + hoja.getPrimeros();
                         }
                     }
                     resultado = new Nodo(0, "+", anulable, hoja.getPrimeros(), hoja.getUltimos(), hoja, null);
@@ -160,7 +161,14 @@ public class Arbol {
                 + "    edge [fontname=\"Helvetica,Arial,sans-serif\"]\n";
         cabeza += postOrden(raiz);
         cabeza += "}";
-        crearArchivo(nombre, cabeza);
+        File directorio = new File("ARBOLES_202111835");
+         if (!directorio.exists()) {
+            if (!directorio.mkdirs()){
+                System.out.println("Error al crear directorio");
+                return;
+            }
+        }
+        crearArchivo(nombre + "_arbol" , cabeza, "ARBOLES_202111835\\");
     }
 
     public void mostrarTablaSiguientes() {
@@ -178,14 +186,17 @@ public class Arbol {
                 + "        >\n"
                 + "    ];\n"
                 + "}";
-        crearArchivo(nombre + "_follow", cuerpo);
+        File directorio = new File("SIGUIENTES_202111835");
+         if (!directorio.exists()) {
+            if (!directorio.mkdirs()){
+                System.out.println("Error al crear directorio");
+                return;
+            }
+        }
+        crearArchivo(nombre + "_follow", cuerpo, "SIGUIENTES_202111835\\");
     }
 
-    public void CrearTablaTransicion() {
-        for (int i = 0; i < encabezadoSimbolos.size(); i++) {
-            System.out.print(encabezadoSimbolos.elementAt(i) + "\t");
-        }
-        System.out.println();
+    public void CrearTablaTransicion() { //Funcion con codigo spaguetti
         FilaEstados inicial = new FilaEstados(raiz.getPrimeros(), encabezadoSimbolos.size());
         Stack<String> restantes = new Stack<String>();
         String[] siguientes = inicial.getEstado().split(",");
@@ -218,7 +229,7 @@ public class Arbol {
 
         while (!restantes.empty()) {
             String estado = restantes.pop();
-            System.out.println("------" + estado);
+            //System.out.println("------" + estado);
             FilaEstados nuevo = new FilaEstados(estado, encabezadoSimbolos.size());
             siguientes = nuevo.getEstado().split(",");
             for (String siguiente : siguientes) {
@@ -234,18 +245,18 @@ public class Arbol {
                     }
                 }
             }
-            tablaTransicion.add(nuevo);            
+            tablaTransicion.add(nuevo);
             for (int i = 0; i < nuevo.getSimbolos().length; i++) {
                 boolean existe = false;
                 for (int j = 0; j < tablaTransicion.size(); j++) {
                     if (tablaTransicion.elementAt(j).getEstado().equals(nuevo.getSimbolos()[i])) {
                         existe = true;
-                        System.out.println("Entro!!!" + tablaTransicion.elementAt(j).getEstado());
+                        //System.out.println("Entro!!!" + tablaTransicion.elementAt(j).getEstado());
                         break;
                     }
                 }
                 if (!restantes.contains(nuevo.getSimbolos()[i]) && nuevo.getSimbolos()[i] != null && existe == false) {
-                    System.out.println("entro2222222--"+nuevo.getSimbolos()[i]);
+                    //System.out.println("entro2222222--"+nuevo.getSimbolos()[i]);
                     restantes.add(nuevo.getSimbolos()[i]);
                 }
             }
@@ -254,26 +265,58 @@ public class Arbol {
     }
 
     public void mostrarTablaTransicion() {
-        for (int i = 0; i < tablaTransicion.size(); i++) {
-            System.out.print(tablaTransicion.elementAt(i).getEstado() + "\t");
-            for (int j = 0; j < tablaTransicion.elementAt(i).getSimbolos().length; j++) {
-                System.out.print(tablaTransicion.elementAt(i).getSimbolos()[j] + "\t");
-            }
-            System.out.println();
+        String cuerpo = "digraph tabla {\n"
+                + "    node [shape=plaintext]\n"
+                + "\n"
+                + "    tbl [\n"
+                + "        label=<\n"
+                + "            <table border=\"1\" cellborder=\"0\" cellspacing=\"0\">"
+                + "<tr><td><b>Estado</b></td>";
+        for (int i = 0; i < encabezadoSimbolos.size(); i++) {
+            cuerpo += "<td><b>" + encabezadoSimbolos.elementAt(i) + "</b></td>";
         }
+        cuerpo += "</tr>";
+        for (int i = 0; i < tablaTransicion.size(); i++) {
+            cuerpo += "<tr><td>" + tablaTransicion.elementAt(i).getEstado() + "</td>";
+            for (int j = 0; j < tablaTransicion.elementAt(i).getSimbolos().length; j++) {
+                cuerpo += "<td>" + tablaTransicion.elementAt(i).getSimbolos()[j] + "</td>";
+            }
+            cuerpo += "</tr>";
+        }
+        cuerpo += "   </table>\n"
+                + "        >\n"
+                + "    ];\n"
+                + "}";
+        File directorio = new File("TRANSICIONES_202111835");
+         if (!directorio.exists()) {
+            if (!directorio.mkdirs()) {
+                System.out.println("Error al crear directorio");
+                return;
+            }
+        }
+        crearArchivo(nombre + "_transicion", cuerpo, "TRANSICIONES_202111835\\");
     }
 
-    public void crearArchivo(String nombre, String cuerpo) {
+    public void crearArchivo(String nombre, String cuerpo, String carpeta) {
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter(nombre + ".dot");
+            File directorio = new File("textosDot");
+            if (!directorio.exists()){
+                if (directorio.mkdirs()) {
+                    System.out.println("Directorio creado");
+                } else {
+                    System.out.println("Error al crear directorio");
+                    return;
+                }
+            }
+            fichero = new FileWriter("textosDot\\"+nombre + ".dot");
             PrintWriter pw = null;
             pw = new PrintWriter(fichero);
             pw.println(cuerpo);
             pw.close();
             try {
                 ProcessBuilder proceso;
-                proceso = new ProcessBuilder("dot", "-Tjpg", "-o", nombre + "_hecho.jpg", nombre + ".dot");
+                proceso = new ProcessBuilder("dot", "-Tjpg", "-o", carpeta +nombre + "_hecho.jpg","textosDot\\"+ nombre + ".dot");
                 proceso.start();
 
             } catch (Exception e) {

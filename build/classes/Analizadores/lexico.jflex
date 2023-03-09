@@ -43,7 +43,7 @@ digito = [0-9]
 letras = {letraMayus} | {letraMinus} | "_"
 identificador = {letras}({letras} | {digito})*
 
-conjuntoASCII = [\x32-\x47\x58-\x64\x91-\x96]// FALTA VERIFICAR
+conjuntoASCII = [\041-\057\072-\100\133-\140\173-\175]
 
 %state STRING
     
@@ -75,10 +75,11 @@ conjuntoASCII = [\x32-\x47\x58-\x64\x91-\x96]// FALTA VERIFICAR
   ","                             { return symbol(sym.COMA); }
   "~"                             { return symbol(sym.CONJUNTO); }
   "-"                           { return symbol(sym.MENOS); }
-  {conjuntoASCII}                 { return symbol(sym.CONJ_ASCII); }
+  
 
   {comentario}                    { /* ignore */ }
   {WhiteSpace}                    { /* ignore */ }
+  {conjuntoASCII}                 { return symbol(sym.CONJ_ASCII); }
 
 }
 

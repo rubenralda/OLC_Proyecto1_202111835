@@ -64,14 +64,14 @@ public class Lexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\3\1\1\1\4\22\0\1\1"+
-    "\1\5\1\6\2\0\1\7\1\0\1\10\2\0\1\11"+
-    "\1\12\1\13\1\14\1\15\1\16\12\17\1\20\1\21"+
-    "\1\22\1\23\1\24\1\25\1\23\2\26\1\27\6\26"+
+    "\1\5\1\6\2\7\1\10\1\7\1\11\2\7\1\12"+
+    "\1\13\1\14\1\15\1\16\1\17\12\20\1\21\1\22"+
+    "\1\23\1\7\1\24\1\25\1\7\2\26\1\27\6\26"+
     "\1\30\3\26\1\31\1\32\2\26\1\33\1\26\1\34"+
-    "\6\26\1\23\1\35\2\23\1\36\1\23\2\37\1\40"+
+    "\6\26\1\7\1\35\2\7\1\36\1\7\2\37\1\40"+
     "\6\37\1\41\3\37\1\42\1\43\2\37\1\44\1\37"+
     "\1\45\6\37\1\46\1\47\1\50\1\51\6\0\1\3"+
-    "\13\0\6\23\u0191\0\2\3\326\0\u0100\3";
+    "\u01a2\0\2\3\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -98,12 +98,12 @@ public class Lexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\2\2\1\3\1\1\1\4\1\5\1\6"+
-    "\1\7\1\10\1\1\1\11\1\12\1\13\2\14\1\15"+
-    "\1\16\2\17\1\14\1\20\2\21\1\22\1\23\1\24"+
-    "\1\25\1\26\1\27\1\30\1\31\1\2\1\0\1\20"+
-    "\1\32\1\33\1\34\1\35\1\36\1\37\1\40\1\41"+
-    "\2\0\1\20\1\0\1\2\1\42";
+    "\2\0\1\1\2\2\1\3\1\4\1\3\1\5\1\6"+
+    "\1\7\1\10\1\11\1\3\1\12\1\13\1\14\1\3"+
+    "\1\15\1\16\2\17\1\3\1\20\2\21\1\22\1\23"+
+    "\1\24\1\25\1\26\1\27\1\30\1\31\1\2\1\0"+
+    "\1\20\1\32\1\33\1\34\1\35\1\36\1\37\1\40"+
+    "\1\41\2\0\1\20\1\0\1\2\1\42";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[51];
@@ -131,9 +131,9 @@ public class Lexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\52\0\124\0\124\0\176\0\124\0\250\0\124"+
-    "\0\124\0\124\0\124\0\124\0\322\0\124\0\124\0\124"+
-    "\0\374\0\124\0\124\0\124\0\u0126\0\u0150\0\u017a\0\u0126"+
+    "\0\0\0\52\0\124\0\124\0\176\0\124\0\124\0\250"+
+    "\0\124\0\124\0\124\0\124\0\124\0\322\0\124\0\124"+
+    "\0\124\0\374\0\124\0\124\0\u0126\0\u0150\0\u017a\0\u0126"+
     "\0\u0126\0\u0150\0\124\0\124\0\124\0\124\0\u01a4\0\124"+
     "\0\u01ce\0\124\0\u01f8\0\u0222\0\u024c\0\124\0\124\0\124"+
     "\0\124\0\124\0\124\0\124\0\124\0\u0276\0\u02a0\0\u02ca"+
@@ -163,23 +163,23 @@ public class Lexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\2\4\1\0\1\5\1\3\1\6\1\7\1\3"+
-    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
+    "\1\3\2\4\1\0\1\5\1\6\1\7\1\6\1\10"+
+    "\1\6\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
     "\1\20\1\21\1\22\1\23\1\24\1\25\1\26\5\25"+
     "\1\27\1\30\1\31\1\32\5\31\1\33\1\34\1\35"+
     "\1\36\2\37\1\0\1\37\1\0\1\37\1\40\26\37"+
-    "\1\41\14\37\54\0\1\4\56\0\1\42\60\0\1\43"+
-    "\40\0\1\44\63\0\1\30\6\0\7\30\1\0\10\30"+
-    "\23\0\1\30\6\0\4\30\1\45\2\30\1\0\5\30"+
-    "\1\45\2\30\12\0\1\46\1\0\1\47\20\0\1\50"+
+    "\1\41\14\37\54\0\1\4\57\0\1\42\60\0\1\43"+
+    "\37\0\1\44\64\0\1\30\5\0\7\30\1\0\10\30"+
+    "\24\0\1\30\5\0\4\30\1\45\2\30\1\0\5\30"+
+    "\1\45\2\30\12\0\1\46\2\0\1\47\17\0\1\50"+
     "\10\0\1\50\7\0\2\37\1\0\1\37\1\0\1\37"+
-    "\1\0\26\37\1\0\14\37\6\0\1\51\1\0\1\52"+
-    "\20\0\1\53\1\0\1\54\1\55\5\0\1\53\1\0"+
+    "\1\0\26\37\1\0\14\37\6\0\1\51\2\0\1\52"+
+    "\17\0\1\53\1\0\1\54\1\55\5\0\1\53\1\0"+
     "\1\54\1\55\4\0\2\43\1\4\1\43\1\5\45\43"+
-    "\5\56\1\57\3\56\1\0\40\56\17\0\1\30\6\0"+
+    "\5\56\1\57\4\56\1\0\37\56\20\0\1\30\5\0"+
     "\3\30\1\60\3\30\1\0\4\30\1\60\3\30\4\0"+
-    "\5\56\1\61\51\56\1\61\16\56\1\62\25\56\17\0"+
-    "\1\30\6\0\2\30\1\63\4\30\1\0\3\30\1\63"+
+    "\5\56\1\61\51\56\1\61\16\56\1\62\25\56\20\0"+
+    "\1\30\5\0\2\30\1\63\4\30\1\0\3\30\1\63"+
     "\4\30\4\0\5\56\1\61\16\56\1\4\25\56";
 
   private static int [] zzUnpacktrans() {
@@ -226,8 +226,8 @@ public class Lexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\2\11\1\1\1\11\1\1\5\11\1\1\3\11"+
-    "\1\1\3\11\6\1\4\11\1\1\1\11\1\1\1\11"+
+    "\2\0\2\11\1\1\2\11\1\1\5\11\1\1\3\11"+
+    "\1\1\2\11\6\1\4\11\1\1\1\11\1\1\1\11"+
     "\1\1\1\0\1\1\10\11\2\0\1\1\1\0\2\1";
 
   private static int [] zzUnpackAttribute() {
@@ -755,52 +755,52 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 36: break;
           case 3:
-            { expreEntrada.setLength(0);expreEntrada.append('\"'); yybegin(STRING);
+            { System.out.print("conjuntoASCII   "); return symbol(sym.CONJ_ASCII);
             }
           // fall through
           case 37: break;
           case 4:
-            { return symbol(sym.CERRADURA_KLENEE);
+            { expreEntrada.setLength(0);expreEntrada.append('\"'); yybegin(STRING);
             }
           // fall through
           case 38: break;
           case 5:
-            { return symbol(sym.CERRADURA_POSITIVA);
+            { return symbol(sym.CERRADURA_KLENEE);
             }
           // fall through
           case 39: break;
           case 6:
-            { return symbol(sym.COMA);
+            { return symbol(sym.CERRADURA_POSITIVA);
             }
           // fall through
           case 40: break;
           case 7:
-            { return symbol(sym.MENOS);
+            { return symbol(sym.COMA);
             }
           // fall through
           case 41: break;
           case 8:
-            { return symbol(sym.CONCATENACION);
+            { return symbol(sym.MENOS);
             }
           // fall through
           case 42: break;
           case 9:
-            { return symbol(sym.DIGITO);
+            { return symbol(sym.CONCATENACION);
             }
           // fall through
           case 43: break;
           case 10:
-            { return symbol(sym.DOS_PUNTOS);
+            { return symbol(sym.DIGITO);
             }
           // fall through
           case 44: break;
           case 11:
-            { return symbol(sym.PUNTO_COMA);
+            { return symbol(sym.DOS_PUNTOS);
             }
           // fall through
           case 45: break;
           case 12:
-            { return symbol(sym.CONJ_ASCII);
+            { return symbol(sym.PUNTO_COMA);
             }
           // fall through
           case 46: break;

@@ -55,10 +55,25 @@ public class ExpresionesRegulares {
         conjunto.add(lexema);
     }
 
-    public static void agregarLexemaConjunto(String inicio, String ultimo) {
+    public static void agregarAscii(String primero, String segundo) {
         //codigo para crear un conjunto de lexemas con el inicio y el final
+        int inicio = (int) primero.charAt(0);
+        int finale = (int) segundo.charAt(0);
+        for (int i = inicio; i <= finale; i++) {
+            agregarLexemaConjunto(String.valueOf((char) i));
+        }
     }
-
+    
+    public static void agregarAsciiEspecial(String primero, String segundo) {
+        int inicio = (int) primero.charAt(0);
+        int finale = (int) segundo.charAt(0);
+        for (int i = inicio; i <= finale; i++) {
+            if ((i>47 && i<58) || (i>64 && i<91) || (i>96 && i<123))
+                continue;
+            agregarLexemaConjunto(String.valueOf((char) i));
+        }
+    }
+    
     public static void agregarConjunto(String nombre) {
         Vector<String> valor = new Vector<String>();
         conjuntos.add(new Expresion(nombre, valor));
