@@ -7,6 +7,7 @@ package Analizadores;
 
 import java_cup.runtime.*;
 import ER.ExpresionesRegulares;
+import Errores.ReporteErrores;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -273,18 +274,19 @@ public class parser extends java_cup.runtime.lr_parser {
     /**
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
-    public void syntax_error(Symbol s){ 
-        System.out.println("Error Sintáctico en la Línea " + (s.left) +
-        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    public void syntax_error(Symbol s){
+        ReporteErrores.crear("Sintáctico", "No se esperaba este componente: " +s.value, (s.left), s.right); 
+        String errSin = "Error Sintáctico en la Línea " + (s.left) + " Columna "+s.right+ ". No se esperaba este componente: " +s.value+".";
+        System.out.println(errSin); 
     } 
     /**
      * Método al que se llama automáticamente ante algún error sintáctico 
      * en el que ya no es posible una recuperación de errores.
      **/ 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
-        System.out.println("Error síntactico irrecuperable en la Línea " + 
-        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
-        " no reconocido."); 
+        ReporteErrores.crear("Sintáctico", "Error irrecuperable, componente \"" +s.value + "\" no reconocido", (s.left), s.right); 
+        String errSin = "Error síntactico irrecuperable en la Línea " + (s.left)+ " Columna "+s.right+". Componente " + s.value + " no reconocido.";
+        System.out.println(errSin); 
     }  
 
 
@@ -725,7 +727,7 @@ RESULT= c; ExpresionesRegulares.agregarConjunto(RESULT);
 		int bleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int bright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String b = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		System.out.println(a + "---" + b );ExpresionesRegulares.agregarAsciiEspecial(a,b);
+		ExpresionesRegulares.agregarAsciiEspecial(a,b);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("compuesta",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

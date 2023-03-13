@@ -2,13 +2,15 @@
 package Analizadores;
 import java_cup.runtime.*;
 import ER.ExpresionesRegulares;
+import Errores.ReporteErrores;
 
 /* Preliminaries to set up and use the scanner.  */
 parser code {:
     /**
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
-    public void syntax_error(Symbol s){ 
+    public void syntax_error(Symbol s){
+        ReporteErrores.crear("Sintáctico", "No se esperaba este componente: " +s.value, (s.left), s.right); 
         String errSin = "Error Sintáctico en la Línea " + (s.left) + " Columna "+s.right+ ". No se esperaba este componente: " +s.value+".";
         System.out.println(errSin); 
     } 
@@ -17,6 +19,7 @@ parser code {:
      * en el que ya no es posible una recuperación de errores.
      **/ 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        ReporteErrores.crear("Sintáctico", "Error irrecuperable, componente \"" +s.value + "\" no reconocido", (s.left), s.right); 
         String errSin = "Error síntactico irrecuperable en la Línea " + (s.left)+ " Columna "+s.right+". Componente " + s.value + " no reconocido.";
         System.out.println(errSin); 
     }  

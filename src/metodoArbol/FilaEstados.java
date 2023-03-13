@@ -11,18 +11,22 @@ package metodoArbol;
 public class FilaEstados {
     
     private String estado;
-    private String[] simbolos;
+    private String identificador;
+    private boolean aceptacion;
+    private String[][] simbolos;
     
     public FilaEstados(String estado, int cantSimbolos){
         this.estado = estado;
-        this.simbolos = new String[cantSimbolos];
+        this.simbolos = new String[cantSimbolos][2];
+        this.aceptacion = false;
+        this.identificador = "hola";
     }
 
     public String getEstado() {
         return estado;
     }
 
-    public String[] getSimbolos() {
+    public String[][] getSimbolos() {
         return simbolos;
     }
 
@@ -30,8 +34,28 @@ public class FilaEstados {
         this.estado = estado;
     }
 
-    public void setSimbolo(String[] simbolo) {
+    public void setSimbolo(String[][] simbolo) {
         this.simbolos = simbolo;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public boolean isAceptacion() {
+        return aceptacion;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+    public void setAceptacion(boolean aceptacion) {
+        this.aceptacion = aceptacion;
+    }
+
+    public void setSimbolos(String[][] simbolos) {
+        this.simbolos = simbolos;
     }
     
 }

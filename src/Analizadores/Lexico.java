@@ -4,7 +4,7 @@
 
 package Analizadores;
 import java_cup.runtime.*;
-
+import Errores.ReporteErrores;
 
 @SuppressWarnings("fallthrough")
 public class Lexico implements java_cup.runtime.Scanner {
@@ -744,7 +744,8 @@ public class Lexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { String errLex = "Error Lexico: <" + yytext() + "> En la linea: " + (yyline) + " y columna: " + (yycolumn); 
+            { ReporteErrores.crear("Léxico", "El carácter \""+ yytext() + "\" no pertenece", (yyline), (yycolumn));
+  String errLex = "Error Lexico: <" + yytext() + "> En la linea: " + (yyline) + " y columna: " + (yycolumn); 
   System.out.println(errLex);
             }
           // fall through
@@ -755,7 +756,7 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 36: break;
           case 3:
-            { System.out.print("conjuntoASCII   "); return symbol(sym.CONJ_ASCII);
+            { return symbol(sym.CONJ_ASCII);
             }
           // fall through
           case 37: break;
@@ -861,7 +862,7 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 57: break;
           case 24:
-            { expreEntrada.append('\\');
+            { expreEntrada.append("\\");
             }
           // fall through
           case 58: break;
@@ -886,27 +887,27 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 62: break;
           case 29:
-            { expreEntrada.append('\"');
+            { expreEntrada.append("\\\"");
             }
           // fall through
           case 63: break;
           case 30:
-            { expreEntrada.append('\'');
+            { expreEntrada.append("\\'");
             }
           // fall through
           case 64: break;
           case 31:
-            { expreEntrada.append('\n');
+            { expreEntrada.append("\\n");
             }
           // fall through
           case 65: break;
           case 32:
-            { expreEntrada.append('\r');
+            { expreEntrada.append("\\r");
             }
           // fall through
           case 66: break;
           case 33:
-            { expreEntrada.append('\t');
+            { expreEntrada.append("\\t");
             }
           // fall through
           case 67: break;

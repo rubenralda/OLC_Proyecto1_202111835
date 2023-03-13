@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/metodo/arbol/Arbol.java</file>
-            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/ER/ExpresionesRegulares.java</file>
+            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/metodoArbol/Arbol.java</file>
+            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/metodoThompson/Afnd.java</file>
+            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/Errores/ReporteErrores.java</file>
+            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/Analizadores/Generador.java</file>
+            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/Analizadores/Lexico.java</file>
             <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/olc1/proyecto1/VentanaPrincipal.java</file>
             <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/olc1/proyecto1/Operaciones.java</file>
+            <file>file:/C:/Users/ruben/Desktop/Compi%201/Lab%20Compi%201/%5BOLC1%5D%20Proyecto1/src/Analizadores/parser.java</file>
         </group>
     </open-files>
 </project-private>

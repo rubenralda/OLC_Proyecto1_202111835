@@ -21,7 +21,18 @@ public class ExpresionesRegulares {
     public static Vector<Expresion> getExpresiones() {
         return expresiones;
     }
- 
+    public static Vector<Expresion> getConjuntos() {
+        return conjuntos;
+    }
+
+    public static Vector<String> getExpresion() {
+        return expresion;
+    }
+
+    public static Vector<String> getConjunto() {
+        return conjunto;
+    }
+    
     /*
         agregarExpresion
         crea un objeto con el identificador que 

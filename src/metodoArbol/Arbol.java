@@ -4,6 +4,7 @@
  */
 package metodoArbol;
 
+import ER.ExpresionesRegulares;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -162,13 +163,13 @@ public class Arbol {
         cabeza += postOrden(raiz);
         cabeza += "}";
         File directorio = new File("ARBOLES_202111835");
-         if (!directorio.exists()) {
-            if (!directorio.mkdirs()){
+        if (!directorio.exists()) {
+            if (!directorio.mkdirs()) {
                 System.out.println("Error al crear directorio");
                 return;
             }
         }
-        crearArchivo(nombre + "_arbol" , cabeza, "ARBOLES_202111835\\");
+        crearArchivo(nombre + "_arbol", cabeza, "ARBOLES_202111835\\");
     }
 
     public void mostrarTablaSiguientes() {
@@ -187,8 +188,8 @@ public class Arbol {
                 + "    ];\n"
                 + "}";
         File directorio = new File("SIGUIENTES_202111835");
-         if (!directorio.exists()) {
-            if (!directorio.mkdirs()){
+        if (!directorio.exists()) {
+            if (!directorio.mkdirs()) {
                 System.out.println("Error al crear directorio");
                 return;
             }
@@ -196,20 +197,24 @@ public class Arbol {
         crearArchivo(nombre + "_follow", cuerpo, "SIGUIENTES_202111835\\");
     }
 
-    public void CrearTablaTransicion() { //Funcion con codigo spaguetti
+    public void CrearTablaTransicion() { //metodo con codigo spaguetti
         FilaEstados inicial = new FilaEstados(raiz.getPrimeros(), encabezadoSimbolos.size());
+        inicial.setIdentificador("S(" + raiz.getPrimeros() + ")");//poner un buen identificador
         Stack<String> restantes = new Stack<String>();
         String[] siguientes = inicial.getEstado().split(",");
         for (String siguiente : siguientes) {
             int indice = encabezadoSimbolos.indexOf(tablaSiguiente[Integer.parseInt(siguiente) - 1][0]);
             if (encabezadoSimbolos.elementAt(indice) == "#") {
+                inicial.setAceptacion(true);
                 continue;
             }
             if (indice != -1) {
-                if (inicial.getSimbolos()[indice] == null) {
-                    inicial.getSimbolos()[indice] = tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                if (inicial.getSimbolos()[indice][0] == null) {
+                    inicial.getSimbolos()[indice][0] = tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                    inicial.getSimbolos()[indice][1] = "S(" + tablaSiguiente[Integer.parseInt(siguiente) - 1][1] + ")";//poner un buen identificador
                 } else {
-                    inicial.getSimbolos()[indice] += "," + tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                    inicial.getSimbolos()[indice][0] += "," + tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                    inicial.getSimbolos()[indice][1] += inicial.getSimbolos()[indice][1].substring(0, inicial.getSimbolos()[indice][1].length() - 1) + "," + tablaSiguiente[Integer.parseInt(siguiente) - 1][1] + ")";//poner un buen identificador
                 }
             }
         }
@@ -217,13 +222,13 @@ public class Arbol {
         for (int i = 0; i < inicial.getSimbolos().length; i++) {
             boolean existe = false;
             for (int j = 0; j < tablaTransicion.size(); j++) {
-                if (tablaTransicion.elementAt(j).getEstado().equals(inicial.getSimbolos()[i])) {
+                if (tablaTransicion.elementAt(j).getEstado().equals(inicial.getSimbolos()[i][0])) {
                     existe = true;
                     break;
                 }
             }
-            if (inicial.getSimbolos()[i] != null && existe == false) {
-                restantes.add(inicial.getSimbolos()[i]);
+            if (inicial.getSimbolos()[i][0] != null && existe == false) {
+                restantes.add(inicial.getSimbolos()[i][0]);
             }
         }
 
@@ -232,16 +237,20 @@ public class Arbol {
             //System.out.println("------" + estado);
             FilaEstados nuevo = new FilaEstados(estado, encabezadoSimbolos.size());
             siguientes = nuevo.getEstado().split(",");
+            nuevo.setIdentificador("S(" + estado + ")");//poner un buen identificador
             for (String siguiente : siguientes) {
                 int indice = encabezadoSimbolos.indexOf(tablaSiguiente[Integer.parseInt(siguiente) - 1][0]);
                 if (encabezadoSimbolos.elementAt(indice) == "#") {
+                    nuevo.setAceptacion(true);
                     continue;
                 }
                 if (indice != -1) {
-                    if (nuevo.getSimbolos()[indice] == null) {
-                        nuevo.getSimbolos()[indice] = tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                    if (nuevo.getSimbolos()[indice][0] == null) {
+                        nuevo.getSimbolos()[indice][0] = tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                        nuevo.getSimbolos()[indice][1] = "S(" + tablaSiguiente[Integer.parseInt(siguiente) - 1][1] + ")";//poner un buen identificador
                     } else {
-                        nuevo.getSimbolos()[indice] += "," + tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                        nuevo.getSimbolos()[indice][0] += "," + tablaSiguiente[Integer.parseInt(siguiente) - 1][1];
+                        nuevo.getSimbolos()[indice][1] += nuevo.getSimbolos()[indice][1].substring(0, nuevo.getSimbolos()[indice][1].length() - 1) + "," + tablaSiguiente[Integer.parseInt(siguiente) - 1][1] + ")";//poner un buen identificador
                     }
                 }
             }
@@ -249,15 +258,15 @@ public class Arbol {
             for (int i = 0; i < nuevo.getSimbolos().length; i++) {
                 boolean existe = false;
                 for (int j = 0; j < tablaTransicion.size(); j++) {
-                    if (tablaTransicion.elementAt(j).getEstado().equals(nuevo.getSimbolos()[i])) {
+                    if (tablaTransicion.elementAt(j).getEstado().equals(nuevo.getSimbolos()[i][0])) {
                         existe = true;
                         //System.out.println("Entro!!!" + tablaTransicion.elementAt(j).getEstado());
                         break;
                     }
                 }
-                if (!restantes.contains(nuevo.getSimbolos()[i]) && nuevo.getSimbolos()[i] != null && existe == false) {
+                if (!restantes.contains(nuevo.getSimbolos()[i][0]) && nuevo.getSimbolos()[i][0] != null && existe == false) {
                     //System.out.println("entro2222222--"+nuevo.getSimbolos()[i]);
-                    restantes.add(nuevo.getSimbolos()[i]);
+                    restantes.add(nuevo.getSimbolos()[i][0]);
                 }
             }
         }
@@ -272,14 +281,22 @@ public class Arbol {
                 + "        label=<\n"
                 + "            <table border=\"1\" cellborder=\"0\" cellspacing=\"0\">"
                 + "<tr><td><b>Estado</b></td>";
-        for (int i = 0; i < encabezadoSimbolos.size(); i++) {
+        for (int i = 1; i < encabezadoSimbolos.size(); i++) {
             cuerpo += "<td><b>" + encabezadoSimbolos.elementAt(i) + "</b></td>";
         }
         cuerpo += "</tr>";
         for (int i = 0; i < tablaTransicion.size(); i++) {
-            cuerpo += "<tr><td>" + tablaTransicion.elementAt(i).getEstado() + "</td>";
-            for (int j = 0; j < tablaTransicion.elementAt(i).getSimbolos().length; j++) {
-                cuerpo += "<td>" + tablaTransicion.elementAt(i).getSimbolos()[j] + "</td>";
+            if (tablaTransicion.elementAt(i).isAceptacion()) {
+                cuerpo += "<tr><td><b>" + tablaTransicion.elementAt(i).getIdentificador() + "*</b></td>";
+            } else {
+                cuerpo += "<tr><td>" + tablaTransicion.elementAt(i).getIdentificador() + "</td>";
+            }
+            for (int j = 1; j < tablaTransicion.elementAt(i).getSimbolos().length; j++) {
+                if (tablaTransicion.elementAt(i).getSimbolos()[j][1] != null) {
+                    cuerpo += "<td>" + tablaTransicion.elementAt(i).getSimbolos()[j][1] + "</td>";
+                } else {
+                    cuerpo += "<td>--------</td>";
+                }
             }
             cuerpo += "</tr>";
         }
@@ -288,7 +305,7 @@ public class Arbol {
                 + "    ];\n"
                 + "}";
         File directorio = new File("TRANSICIONES_202111835");
-         if (!directorio.exists()) {
+        if (!directorio.exists()) {
             if (!directorio.mkdirs()) {
                 System.out.println("Error al crear directorio");
                 return;
@@ -297,11 +314,45 @@ public class Arbol {
         crearArchivo(nombre + "_transicion", cuerpo, "TRANSICIONES_202111835\\");
     }
 
+    public void mostrarAutomata() {
+        String cuerpo = "digraph " + nombre + " {\n"
+                + "	fontname=\"Helvetica,Arial,sans-serif\"\n"
+                + "	node [fontname=\"Helvetica,Arial,sans-serif\"]\n"
+                + "	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n"
+                + "	rankdir=LR;\n";
+        String anulable = "node [shape = doublecircle]; ";
+        String conexiones = "\nnode [shape = circle];\n";
+        for (int i = 0; i < tablaTransicion.size(); i++) {
+            if (tablaTransicion.elementAt(i).isAceptacion()) {
+                anulable += "\"" + tablaTransicion.elementAt(i).getIdentificador() + "\"";
+            }
+            for (int j = 1; j < tablaTransicion.elementAt(i).getSimbolos().length; j++) {
+
+                if (tablaTransicion.elementAt(i).getSimbolos()[j][1] != null) {
+                    conexiones += "\"" + tablaTransicion.elementAt(i).getIdentificador() + "\" -> ";
+                    String simbolo = encabezadoSimbolos.elementAt(j).startsWith("\"") ? encabezadoSimbolos.elementAt(j).substring(1, encabezadoSimbolos.elementAt(j).length() - 1) : encabezadoSimbolos.elementAt(j);
+                    conexiones += "\"" + tablaTransicion.elementAt(i).getSimbolos()[j][1] + "\" [label = \"" + simbolo + "\"];\n";
+                }
+            }
+        }
+        cuerpo += anulable;
+        cuerpo += conexiones;
+        cuerpo += "}";
+        File directorio = new File("AFD_202111835");
+        if (!directorio.exists()) {
+            if (!directorio.mkdirs()) {
+                System.out.println("Error al crear directorio");
+                return;
+            }
+        }
+        crearArchivo(nombre + "_AFD", cuerpo, "AFD_202111835\\");
+    }
+
     public void crearArchivo(String nombre, String cuerpo, String carpeta) {
         FileWriter fichero = null;
         try {
             File directorio = new File("textosDot");
-            if (!directorio.exists()){
+            if (!directorio.exists()) {
                 if (directorio.mkdirs()) {
                     System.out.println("Directorio creado");
                 } else {
@@ -309,14 +360,14 @@ public class Arbol {
                     return;
                 }
             }
-            fichero = new FileWriter("textosDot\\"+nombre + ".dot");
+            fichero = new FileWriter("textosDot\\" + nombre + ".dot");
             PrintWriter pw = null;
             pw = new PrintWriter(fichero);
             pw.println(cuerpo);
             pw.close();
             try {
                 ProcessBuilder proceso;
-                proceso = new ProcessBuilder("dot", "-Tjpg", "-o", carpeta +nombre + "_hecho.jpg","textosDot\\"+ nombre + ".dot");
+                proceso = new ProcessBuilder("dot", "-Tjpg", "-o", carpeta + nombre + "_hecho.jpg", "textosDot\\" + nombre + ".dot");
                 proceso.start();
 
             } catch (Exception e) {
@@ -335,4 +386,74 @@ public class Arbol {
         }
 
     }
+
+    //Validar cadena
+    public boolean validarCadenas(String entrada) {
+        FilaEstados estadoActual = tablaTransicion.elementAt(0);
+        for (int i = 0; i < entrada.length(); i++) {
+            char caracter = entrada.charAt(i);
+            String lexema = String.valueOf(caracter);
+            if (caracter == '\\') {
+                if (i + 1 < entrada.length()) {
+                    if (entrada.charAt(i + 1) == '\'' || entrada.charAt(i + 1) == '\"' || entrada.charAt(i + 1) == 'n') {
+                        lexema += entrada.charAt(i + 1);
+                        i++;
+                    }
+                }
+            }
+            System.out.println(lexema);
+            int posicion = -1;
+            for (int j = 1; j < encabezadoSimbolos.size(); j++) {//busco la posición del simbolo
+                if (estadoActual.getSimbolos()[j][0] == null) {
+                    continue;
+                }
+                if (encabezadoSimbolos.elementAt(j).startsWith("\"")) {//si es un caracter de un string
+                    if (encabezadoSimbolos.elementAt(j).substring(1, encabezadoSimbolos.elementAt(j).length() - 1).equals(lexema)) {
+                        posicion = j;
+                        break;
+                    }
+                } else if (encabezadoSimbolos.elementAt(j).equals(lexema)) {// si es un caracter de escape
+                    posicion = j;
+                    break;
+                } else {//si es un caracter de un conjunto
+                    for (int k = 0; k < ExpresionesRegulares.getConjuntos().size(); k++) {
+                        if (ExpresionesRegulares.getConjuntos().elementAt(k).getNombre().equals(encabezadoSimbolos.elementAt(j))) {
+                            for (int l = 0; l < ExpresionesRegulares.getConjuntos().elementAt(k).getValor().size(); l++) {
+                                if (ExpresionesRegulares.getConjuntos().elementAt(k).getValor().elementAt(l).equals(lexema)) {
+
+                                    posicion = j;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            System.out.println("****" + String.valueOf(posicion));
+            if (posicion == -1) {
+                return false;//el simbolo no existe
+            }
+
+            //if (estadoActual.getSimbolos()[posicion][0] != null) {
+            for (int j = 0; j < tablaTransicion.size(); j++) {
+                if (tablaTransicion.elementAt(j).getEstado().equals(estadoActual.getSimbolos()[posicion][0])) {
+                    estadoActual = tablaTransicion.elementAt(j);
+                    break;
+                }
+            }
+            //}else{
+            //    return false;
+            //}
+        }
+        if (estadoActual.isAceptacion()) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
 }

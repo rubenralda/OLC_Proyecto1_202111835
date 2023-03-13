@@ -1,6 +1,6 @@
 package Analizadores;
 import java_cup.runtime.*;
-
+import Errores.ReporteErrores;
 %%
 
 %class Lexico
@@ -87,16 +87,17 @@ conjuntoASCII = [\041-\057\072-\100\133-\140\173-\175]
   \"                             { yybegin(YYINITIAL); expreEntrada.append('\"');
                                 return symbol(sym.ENTRADA, expreEntrada.toString()); }
   [^\n\r\"\\]+                   { expreEntrada.append( yytext() ); }
-  \\t                            { expreEntrada.append('\t'); }
-  \\n                            { expreEntrada.append('\n'); }
-  \\r                            { expreEntrada.append('\r'); }
-  \\\"                           { expreEntrada.append('\"'); }
-  \\                             { expreEntrada.append('\\'); }
-  \\\'                           { expreEntrada.append('\''); }
+  \\t                            { expreEntrada.append("\\t"); }
+  \\n                            { expreEntrada.append("\\n"); }
+  \\r                            { expreEntrada.append("\\r"); }
+  \\\"                           { expreEntrada.append("\\\""); }
+  \\                             { expreEntrada.append("\\"); }
+  \\\'                           { expreEntrada.append("\\'"); }
 }
 
 /* error fallback */
 <YYINITIAL> . {
+  ReporteErrores.crear("Léxico", "El carácter \""+ yytext() + "\" no pertenece", (yyline), (yycolumn));
   String errLex = "Error Lexico: <" + yytext() + "> En la linea: " + (yyline) + " y columna: " + (yycolumn); 
   System.out.println(errLex); 
 }
