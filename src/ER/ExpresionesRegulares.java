@@ -16,7 +16,13 @@ public class ExpresionesRegulares {
     private static Vector<Expresion> expresiones = new Vector<Expresion>();
     private static Vector<Expresion> conjuntos = new Vector<Expresion>();
     private static Vector<String> conjunto = new Vector<String>();
+    public static int conteoAFND = 0;
 
+    public static int getConteoAFND() {
+        return conteoAFND;
+    }
+    
+    
     
     public static Vector<Expresion> getExpresiones() {
         return expresiones;

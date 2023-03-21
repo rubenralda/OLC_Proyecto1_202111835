@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Vector;
 import metodoArbol.Arbol;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
 /**
  *
@@ -19,6 +21,7 @@ import metodoArbol.Arbol;
 public class Operaciones {
 
     private Vector<Arbol> arboles = new Vector<Arbol>();
+    private JsonArray jsonArray = new JsonArray();
 
     public String generarMetodoDeArbol(Vector<Expresion> expresiones) {
         String reporte = "";
@@ -39,6 +42,9 @@ public class Operaciones {
             reporte += "\nTabla de transicion graficada: " + expresiones.elementAt(i).getNombre();
             nuevo.mostrarAutomata();
             reporte += "\nAutomata finito determinista creado: " + expresiones.elementAt(i).getNombre();
+            ExpresionesRegulares.conteoAFND = 0;
+            nuevo.mostrarAFND();
+            reporte += "\nAutomata finito no determinista creado: " + expresiones.elementAt(i).getNombre();
             arboles.add(nuevo);
         }
         //ExpresionesRegulares.mostrarConjuntos();
@@ -46,26 +52,36 @@ public class Operaciones {
         return reporte;
     }
 
-    public String validarCadenas(Vector<Expresion> expresiones) {
+    public String validarCadenas(Vector<Expresion> expresiones ,String nombreArchivo) {
         String mensaje = "";
+        // Crear un objeto JSON utilizando la librería Jackson
+        
         for (int i = 0; i < arboles.size(); i++) {
             for (int j = 0; j < expresiones.size(); j++) {
                 if (arboles.elementAt(i).getNombre().equals(expresiones.elementAt(j).getNombre())) {
                     for (int k = 0; k < expresiones.elementAt(j).getEntradas().size(); k++) {
+                        JsonObject jsonObject = new JsonObject();
                         String entrada = expresiones.elementAt(j).getEntradas().elementAt(k).substring(1, expresiones.elementAt(j).getEntradas().elementAt(k).length() - 1);
                         System.out.println(entrada);
+                        jsonObject.addProperty("Valor", entrada);
+                        jsonObject.addProperty("ExpresionRegular", expresiones.elementAt(j).getNombre());
                         if (arboles.elementAt(i).validarCadenas(entrada)) {
+                            jsonObject.addProperty("Resultado", "Cadena Valida");
                             mensaje += "La expresión: \"" + entrada + "\" SI es válida con la expresión regular " + arboles.elementAt(i).getNombre() + ".\n";
                         } else {
+                            jsonObject.addProperty("Resultado", "Cadena No Valida");
                             mensaje += "La expresión: \"" + entrada + "\" NO es válida con la expresión regular " + arboles.elementAt(i).getNombre() + ".\n";
                         }
+                        jsonArray.add(jsonObject);
                     }
                 }
             }
         }
+        crearArchivo(nombreArchivo, jsonArray.toString());
         return mensaje;
     }
-    public void crearArchivo(String nombre, String cuerpo, String carpeta) {
+
+    public void crearArchivo(String nombre, String cuerpo) {
         FileWriter fichero = null;
         try {
             File directorio = new File("SALIDAS_202111835");
@@ -77,7 +93,7 @@ public class Operaciones {
                     return;
                 }
             }
-            fichero = new FileWriter("SALIDAS_202111835\\" + nombre + ".dot");
+            fichero = new FileWriter("SALIDAS_202111835\\" + nombre + ".json");
             PrintWriter pw = null;
             pw = new PrintWriter(fichero);
             pw.println(cuerpo);
@@ -102,6 +118,7 @@ public class Operaciones {
 
     public void Vaciar() {
         arboles.clear();
+        jsonArray = new JsonArray();
         ExpresionesRegulares.getExpresiones().clear();
         ExpresionesRegulares.getConjuntos().clear();
         ExpresionesRegulares.getConjunto().clear();

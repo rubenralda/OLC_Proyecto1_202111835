@@ -100,10 +100,10 @@ public class Lexico implements java_cup.runtime.Scanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\1\1\2\2\1\3\1\4\1\3\1\5\1\6"+
     "\1\7\1\10\1\11\1\3\1\12\1\13\1\14\1\3"+
-    "\1\15\1\16\2\17\1\3\1\20\2\21\1\22\1\23"+
-    "\1\24\1\25\1\26\1\27\1\30\1\31\1\2\1\0"+
-    "\1\20\1\32\1\33\1\34\1\35\1\36\1\37\1\40"+
-    "\1\41\2\0\1\20\1\0\1\2\1\42";
+    "\1\15\1\16\2\17\1\3\2\20\1\21\1\22\1\23"+
+    "\1\24\1\25\1\26\1\27\1\30\1\2\1\0\2\31"+
+    "\1\32\1\33\1\34\1\35\1\36\1\37\1\40\1\41"+
+    "\2\0\1\31\1\0\1\2\1\42";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[51];
@@ -134,8 +134,8 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\0\0\0\52\0\124\0\124\0\176\0\124\0\124\0\250"+
     "\0\124\0\124\0\124\0\124\0\124\0\322\0\124\0\124"+
     "\0\124\0\374\0\124\0\124\0\u0126\0\u0150\0\u017a\0\u0126"+
-    "\0\u0126\0\u0150\0\124\0\124\0\124\0\124\0\u01a4\0\124"+
-    "\0\u01ce\0\124\0\u01f8\0\u0222\0\u024c\0\124\0\124\0\124"+
+    "\0\u0150\0\124\0\124\0\124\0\124\0\u01a4\0\124\0\u01ce"+
+    "\0\124\0\u01f8\0\u0222\0\u0126\0\u024c\0\124\0\124\0\124"+
     "\0\124\0\124\0\124\0\124\0\124\0\u0276\0\u02a0\0\u02ca"+
     "\0\u02f4\0\u0276\0\u0126";
 
@@ -166,21 +166,21 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\1\3\2\4\1\0\1\5\1\6\1\7\1\6\1\10"+
     "\1\6\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
     "\1\20\1\21\1\22\1\23\1\24\1\25\1\26\5\25"+
-    "\1\27\1\30\1\31\1\32\5\31\1\33\1\34\1\35"+
-    "\1\36\2\37\1\0\1\37\1\0\1\37\1\40\26\37"+
-    "\1\41\14\37\54\0\1\4\57\0\1\42\60\0\1\43"+
-    "\37\0\1\44\64\0\1\30\5\0\7\30\1\0\10\30"+
-    "\24\0\1\30\5\0\4\30\1\45\2\30\1\0\5\30"+
-    "\1\45\2\30\12\0\1\46\2\0\1\47\17\0\1\50"+
-    "\10\0\1\50\7\0\2\37\1\0\1\37\1\0\1\37"+
-    "\1\0\26\37\1\0\14\37\6\0\1\51\2\0\1\52"+
+    "\1\27\1\6\1\30\1\31\5\30\1\32\1\33\1\34"+
+    "\1\35\2\36\1\0\1\36\1\0\1\36\1\37\26\36"+
+    "\1\40\14\36\54\0\1\4\57\0\1\41\60\0\1\42"+
+    "\37\0\1\43\64\0\1\44\5\0\7\44\1\0\10\44"+
+    "\24\0\1\44\5\0\4\44\1\45\2\44\1\0\5\44"+
+    "\1\45\2\44\12\0\1\46\2\0\1\47\17\0\1\50"+
+    "\10\0\1\50\7\0\2\36\1\0\1\36\1\0\1\36"+
+    "\1\0\26\36\1\0\14\36\6\0\1\51\2\0\1\52"+
     "\17\0\1\53\1\0\1\54\1\55\5\0\1\53\1\0"+
-    "\1\54\1\55\4\0\2\43\1\4\1\43\1\5\45\43"+
-    "\5\56\1\57\4\56\1\0\37\56\20\0\1\30\5\0"+
-    "\3\30\1\60\3\30\1\0\4\30\1\60\3\30\4\0"+
+    "\1\54\1\55\4\0\2\42\1\4\1\42\1\5\45\42"+
+    "\5\56\1\57\4\56\1\0\37\56\20\0\1\44\5\0"+
+    "\3\44\1\60\3\44\1\0\4\44\1\60\3\44\4\0"+
     "\5\56\1\61\51\56\1\61\16\56\1\62\25\56\20\0"+
-    "\1\30\5\0\2\30\1\63\4\30\1\0\3\30\1\63"+
-    "\4\30\4\0\5\56\1\61\16\56\1\4\25\56";
+    "\1\44\5\0\2\44\1\63\4\44\1\0\3\44\1\63"+
+    "\4\44\4\0\5\56\1\61\16\56\1\4\25\56";
 
   private static int [] zzUnpacktrans() {
     int [] result = new int[798];
@@ -227,8 +227,8 @@ public class Lexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\2\11\1\1\2\11\1\1\5\11\1\1\3\11"+
-    "\1\1\2\11\6\1\4\11\1\1\1\11\1\1\1\11"+
-    "\1\1\1\0\1\1\10\11\2\0\1\1\1\0\2\1";
+    "\1\1\2\11\5\1\4\11\1\1\1\11\1\1\1\11"+
+    "\1\1\1\0\2\1\10\11\2\0\1\1\1\0\2\1";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[51];
@@ -821,53 +821,53 @@ public class Lexico implements java_cup.runtime.Scanner {
           // fall through
           case 49: break;
           case 16:
-            { return symbol(sym.IDENTIFICADOR);
+            { return symbol(sym.LETRA_MINUS);
             }
           // fall through
           case 50: break;
           case 17:
-            { return symbol(sym.LETRA_MINUS);
+            { return symbol(sym.LLAVE_ABRE);
             }
           // fall through
           case 51: break;
           case 18:
-            { return symbol(sym.LLAVE_ABRE);
+            { return symbol(sym.ALTERNANCIA);
             }
           // fall through
           case 52: break;
           case 19:
-            { return symbol(sym.ALTERNANCIA);
+            { return symbol(sym.LLAVE_CIERRA);
             }
           // fall through
           case 53: break;
           case 20:
-            { return symbol(sym.LLAVE_CIERRA);
+            { return symbol(sym.CONJUNTO);
             }
           // fall through
           case 54: break;
           case 21:
-            { return symbol(sym.CONJUNTO);
+            { expreEntrada.append( yytext() );
             }
           // fall through
           case 55: break;
           case 22:
-            { expreEntrada.append( yytext() );
-            }
-          // fall through
-          case 56: break;
-          case 23:
             { yybegin(YYINITIAL); expreEntrada.append('\"');
                                 return symbol(sym.ENTRADA, expreEntrada.toString());
             }
           // fall through
+          case 56: break;
+          case 23:
+            { expreEntrada.append("\\");
+            }
+          // fall through
           case 57: break;
           case 24:
-            { expreEntrada.append("\\");
+            { return symbol(sym.SEPARADOR);
             }
           // fall through
           case 58: break;
           case 25:
-            { return symbol(sym.SEPARADOR);
+            { return symbol(sym.IDENTIFICADOR);
             }
           // fall through
           case 59: break;

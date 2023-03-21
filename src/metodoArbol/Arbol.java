@@ -227,7 +227,7 @@ public class Arbol {
                     break;
                 }
             }
-            if (inicial.getSimbolos()[i][0] != null && existe == false) {
+            if (!restantes.contains(inicial.getSimbolos()[i][0]) && inicial.getSimbolos()[i][0] != null && existe == false) {
                 restantes.add(inicial.getSimbolos()[i][0]);
             }
         }
@@ -348,6 +348,12 @@ public class Arbol {
         crearArchivo(nombre + "_AFD", cuerpo, "AFD_202111835\\");
     }
 
+    /*  
+        CrearArchivo(nombre,cuerpo,carpeta)
+        nombre: nombre del archivo de entrada
+        cuerpo: todo lo que lleva el archivo dentro
+        carpeta: nombre de la carpeta que contendra el archivo
+     */
     public void crearArchivo(String nombre, String cuerpo, String carpeta) {
         FileWriter fichero = null;
         try {
@@ -456,4 +462,40 @@ public class Arbol {
         return nombre;
     }
 
+    public void mostrarAFND() {
+        String cabeza = "digraph " + nombre + " {\n"
+                + "	fontname=\"Helvetica,Arial,sans-serif\"\n"
+                + "	node [fontname=\"Helvetica,Arial,sans-serif\"]\n"
+                + "	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n"
+                + "	rankdir=LR;\n"
+                + "node [shape = doublecircle];" + "S"+ExpresionesRegulares.conteoAFND + ";\n"
+                + "    node [shape = circle];\n"
+                + "    inicio[label=\"\" shape=\"rectangule\" color=\"white\"];\n"
+                + "    inicio -> S0 [label = \"Inicio\"];";
+        cabeza += raiz.getIzquierda().graphviz();
+        cabeza += "}";
+        File directorio = new File("AFND_202111835");
+        if (!directorio.exists()) {
+            if (!directorio.mkdirs()) {
+                System.out.println("Error al crear directorio");
+                return;
+            }
+        }
+        crearArchivo(nombre + "_afnd", cabeza, "AFND_202111835\\");
+    }
+
+    /*
+    public void crearAFND(Nodo nodo) {
+        if (nodo != null) {
+            agregarEstados(nodo.getTipo());
+            if (nodo.getIzquierda() != null) {
+                agregarEstados(nodo.getIzquierda().getTipo());
+                postOrden(nodo.getIzquierda());
+            }
+            if (nodo.getDerecha() != null) {
+                agregarEstados(nodo.getDerecha().getTipo());
+                postOrden(nodo.getDerecha());
+            }
+        }
+    }*/
 }

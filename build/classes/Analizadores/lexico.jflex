@@ -40,8 +40,8 @@ letraMinus = [a-z]
     
 digito = [0-9]
 
-letras = {letraMayus} | {letraMinus} | "_"
-identificador = {letras}({letras} | {digito})*
+letras = {letraMayus} | {letraMinus}
+identificador = {letras}({letras} | {digito} | "_")*
 
 conjuntoASCII = [\041-\057\072-\100\133-\140\173-\175]
 
