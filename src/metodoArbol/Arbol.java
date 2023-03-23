@@ -178,10 +178,19 @@ public class Arbol {
                 + "\n"
                 + "    tbl [\n"
                 + "        label=<\n"
-                + "            <table border=\"1\" cellborder=\"0\" cellspacing=\"0\">"
-                + "<tr><td><b>Hoja</b></td><td><b>ID</b></td><td><b>Siguiente</b></td></tr>";
+                + "            <table border=\"0\" cellborder=\"1\" cellspacing=\"0\">"
+                + "<tr><td bgcolor=\"/rdylgn11/5:/rdylgn11/5\"><b>Hoja</b></td>"
+                + "<td bgcolor=\"/rdylgn11/5:/rdylgn11/5\"><b>ID</b></td>"
+                + "<td bgcolor=\"/rdylgn11/5:/rdylgn11/5\"><b>Siguiente</b></td>"
+                + "</tr>";
         for (int i = 0; i < tablaSiguiente.length; i++) {
-            cuerpo += "<tr><td>" + tablaSiguiente[i][0] + "</td><td>" + String.valueOf(i + 1) + "</td><td>" + tablaSiguiente[i][1] + "</td></tr>";
+            String simbolo = tablaSiguiente[i][0].startsWith("\"") ? tablaSiguiente[i][0].substring(1, tablaSiguiente[i][0].length() - 1) : tablaSiguiente[i][0];
+            cuerpo += "<tr><td>" + simbolo + "</td><td>" + String.valueOf(i + 1) + "</td><td>";
+            if (tablaSiguiente[i][1] != null) {
+                cuerpo += tablaSiguiente[i][1] + "</td></tr>";
+            } else {
+                cuerpo += "----</td></tr>";
+            }
         }
         cuerpo += "   </table>\n"
                 + "        >\n"
@@ -279,10 +288,11 @@ public class Arbol {
                 + "\n"
                 + "    tbl [\n"
                 + "        label=<\n"
-                + "            <table border=\"1\" cellborder=\"0\" cellspacing=\"0\">"
-                + "<tr><td><b>Estado</b></td>";
+                + "            <table border=\"0\" cellborder=\"1\" cellspacing=\"0\">"
+                + "<tr><td bgcolor=\"/rdylgn11/5:/rdylgn11/5\"><b>Estado</b></td>";
         for (int i = 1; i < encabezadoSimbolos.size(); i++) {
-            cuerpo += "<td><b>" + encabezadoSimbolos.elementAt(i) + "</b></td>";
+            String simbolo = encabezadoSimbolos.elementAt(i).startsWith("\"") ? encabezadoSimbolos.elementAt(i).substring(1, encabezadoSimbolos.elementAt(i).length() - 1) : encabezadoSimbolos.elementAt(i);
+            cuerpo += "<td bgcolor=\"/rdylgn11/5:/rdylgn11/5\"><b>" + simbolo + "</b></td>";
         }
         cuerpo += "</tr>";
         for (int i = 0; i < tablaTransicion.size(); i++) {
@@ -321,7 +331,9 @@ public class Arbol {
                 + "	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n"
                 + "	rankdir=LR;\n";
         String anulable = "node [shape = doublecircle]; ";
-        String conexiones = "\nnode [shape = circle];\n";
+        String conexiones = "\nnode [shape = circle];\n"
+                + "    inicio[label=\"\" shape=\"rectangule\" color=\"white\"];\n"
+                + "    inicio -> \"" + tablaTransicion.elementAt(0).getIdentificador() + "\" [label = \"Inicio\"];";
         for (int i = 0; i < tablaTransicion.size(); i++) {
             if (tablaTransicion.elementAt(i).isAceptacion()) {
                 anulable += "\"" + tablaTransicion.elementAt(i).getIdentificador() + "\"";
@@ -407,7 +419,7 @@ public class Arbol {
                     }
                 }
             }
-            System.out.println(lexema);
+            //System.out.println(lexema);
             int posicion = -1;
             for (int j = 1; j < encabezadoSimbolos.size(); j++) {//busco la posición del simbolo
                 if (estadoActual.getSimbolos()[j][0] == null) {
@@ -436,21 +448,17 @@ public class Arbol {
                     }
                 }
             }
-            System.out.println("****" + String.valueOf(posicion));
+            //System.out.println("****" + String.valueOf(posicion));
             if (posicion == -1) {
                 return false;//el simbolo no existe
             }
 
-            //if (estadoActual.getSimbolos()[posicion][0] != null) {
             for (int j = 0; j < tablaTransicion.size(); j++) {
                 if (tablaTransicion.elementAt(j).getEstado().equals(estadoActual.getSimbolos()[posicion][0])) {
                     estadoActual = tablaTransicion.elementAt(j);
                     break;
                 }
             }
-            //}else{
-            //    return false;
-            //}
         }
         if (estadoActual.isAceptacion()) {
             return true;
@@ -468,7 +476,7 @@ public class Arbol {
                 + "	node [fontname=\"Helvetica,Arial,sans-serif\"]\n"
                 + "	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n"
                 + "	rankdir=LR;\n"
-                + "node [shape = doublecircle];" + "S"+ExpresionesRegulares.conteoAFND + ";\n"
+                + "node [shape = doublecircle];" + "S" + ExpresionesRegulares.conteoAFND + ";\n"
                 + "    node [shape = circle];\n"
                 + "    inicio[label=\"\" shape=\"rectangule\" color=\"white\"];\n"
                 + "    inicio -> S0 [label = \"Inicio\"];";
@@ -484,18 +492,4 @@ public class Arbol {
         crearArchivo(nombre + "_afnd", cabeza, "AFND_202111835\\");
     }
 
-    /*
-    public void crearAFND(Nodo nodo) {
-        if (nodo != null) {
-            agregarEstados(nodo.getTipo());
-            if (nodo.getIzquierda() != null) {
-                agregarEstados(nodo.getIzquierda().getTipo());
-                postOrden(nodo.getIzquierda());
-            }
-            if (nodo.getDerecha() != null) {
-                agregarEstados(nodo.getDerecha().getTipo());
-                postOrden(nodo.getDerecha());
-            }
-        }
-    }*/
 }
