@@ -33,7 +33,7 @@ terminal    String        SALTO, ENTRADA, MENOS;
 /* Non terminals */
 non terminal String        inicio, item, item_ascii, notaciones, entre; 
 non terminal String        definiciones, entradas,conjuntos,expresion;
-non terminal String        familia, simple, compuesta, notacion, familias;
+non terminal String        simple, compuesta, notacion, familias;
 
 /* Precedences */
 precedence left CERRADURA_KLENEE, CERRADURA_POSITIVA, OPCIONAL;
@@ -51,9 +51,10 @@ definiciones ::=
     ;
 
 conjuntos ::= CONJ DOS_PUNTOS IDENTIFICADOR:c  {:RESULT= c; ExpresionesRegulares.agregarConjunto(RESULT);:} MENOS ASIGNACION familias PUNTO_COMA;
-familias ::= familia | compuesta;
+familias ::= simple | compuesta;
 
-familia ::=  familia COMA simple | simple;
+simple ::= simple COMA item
+    | item ;
 
 item_ascii ::= CONJ_ASCII:a {:RESULT= a;:}
     | COMILLA_DOBLE:a {:RESULT= a;:} 
@@ -79,7 +80,6 @@ item ::=
     | item_ascii:a {:RESULT= a; ExpresionesRegulares.agregarLexemaConjunto(RESULT);:}
     ;
 
-simple ::= item COMA item;
 
 
 compuesta ::= LETRA_MAYUS:a CONJUNTO LETRA_MAYUS:b {:ExpresionesRegulares.agregarAscii(a,b);:}

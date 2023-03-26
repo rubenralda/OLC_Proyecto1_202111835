@@ -471,6 +471,7 @@ public class Arbol {
     }
 
     public void mostrarAFND() {
+        String cuerpo = raiz.getIzquierda().graphviz();
         String cabeza = "digraph " + nombre + " {\n"
                 + "	fontname=\"Helvetica,Arial,sans-serif\"\n"
                 + "	node [fontname=\"Helvetica,Arial,sans-serif\"]\n"
@@ -480,7 +481,7 @@ public class Arbol {
                 + "    node [shape = circle];\n"
                 + "    inicio[label=\"\" shape=\"rectangule\" color=\"white\"];\n"
                 + "    inicio -> S0 [label = \"Inicio\"];";
-        cabeza += raiz.getIzquierda().graphviz();
+        cabeza += cuerpo;
         cabeza += "}";
         File directorio = new File("AFND_202111835");
         if (!directorio.exists()) {
